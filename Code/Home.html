@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rent Receipt</title>
+    <link rel="stylesheet" href="page.css">
+</head>
+<body>
+    <main class="container"> 
+        <section class="form-panel">
+            <h1>
+                Generate Rent Receipt
+            </h1>
+            <form id="receipt-form">
+                <div class="form-group"> 
+                    <label for="tenant-name">Tenant Name</label>
+                    <input type="text" id="tenant-name" placeholder="Dio Brando" required>
+                     <label for="Landlord">Landlord name</label>
+                    <input type="text" id="Landlord" required>
+                </div>
+                <div class="form-group">
+                     <label for="Useremail">Email</label>
+                    <input type="Useremail" id="Useremail" placeholder="dbrando@gmail.com" required>
+                     <label for="usertele">Phone number</label>
+                    <input type="tel" id="usertele" required>
+                </div>
+                <div class="form-group">
+                     <label for="userAddress">Property/Address</label>
+                    <input type="text" id="userAddress"required>
+                     <label for="user-unit">Unit</label>
+                    <input type="text" id="user-unit" required>
+                </div>
+                <div class="form-group">
+                     <label for="pay-amt">Amount (USD)</label>
+                    <input type="number" id="pay-amt" min="0" step="0.01" placeholder="$" required>
+                     <label for="pay-date">Payment date</label>
+                    <input type="date" id="pay-date"  required>
+                </div>
+                <div class="form-group">
+                    <label for="pay-method">Payment method</label>
+                    <select id="pay-method" required>
+                        <option value="visa">Visa</option>
+                        <option id="apple-pay">Apple Pay</option>
+                        <option id="pay-pal">PayPal</option>
+                    </select>
+                     <label for="rec-ID">Receipt ID</label>
+                    <input type="text" id="rec-ID" placeholder="RCPT-001" required>
+                </div>
+                <div class="form-group-fullWidth">
+                    <label for="notes">Notes</label>
+                    <input type="text" id="notes" placeholder="Additional details..." required>
+                </div>
+                 <div class="form-group-fullWidth">
+                    <label for="signature">Signature</label>
+                    <input type="text" id="signature" placeholder="Sign here" required>
+                </div>
+                <div class="form-buttons">
+                    <button type="submit"class="button-form">Generate Receipt</button>
+                    <button type="button" id="print-btn"class="button-form">Print</button>
+                    <button type="button" id="save-btn"class="button-form">Save</button>
+                </div>
+            </form>
+        </section>
+        <aside class="preview-panel">
+            <h2>Receipt Preview</h2>
+            <div class="receipt-card">
+                <p id="preview-placeholder">Your generated rent receipt will appear here</p>
+            </div>
+        </aside>
+    </main>
+</body>
+</html>
