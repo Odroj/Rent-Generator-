@@ -4,6 +4,8 @@ body{
     margin: 0;
     padding: 20px;
 }
+
+/* ===== LAYOUT & CONTAINER ===== */
 .container{
     display: flex; 
     flex-wrap:wrap;
@@ -15,6 +17,8 @@ body{
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     padding: 30px;
 }
+
+/* ===== FORM & PREVIEW PANELS ===== */
 .form-panel, .preview-panel {
   flex: 1 1 400px;
   border-radius: 15px;
@@ -28,11 +32,15 @@ body{
 .preview-panel{
     flex: 1 1 400px;
 }
+
+/* ===== HEADINGS ===== */
 h1{
     text-align: center;
     color: #333;
     margin-bottom: 25px;
 }
+
+/* ===== FORM GROUPS & INPUTS ===== */
 .form-group{
     flex: 1 1 45%;
     display: flex;
@@ -71,6 +79,8 @@ h1{
 #signature{
     height: 10px; 
 }
+
+/* ===== BUTTONS ===== */
 .form-buttons{
     display: flex;
     margin-top: 20px;
@@ -94,6 +104,8 @@ h1{
     background-color: #FDF8EC;
     transform: scale(0.90);
 }
+
+/* ===== PREVIEW PANEL STYLING ===== */
 .preview-panel h2{
     text-align: center;
     color: #333;
@@ -109,6 +121,7 @@ h1{
     background-color: #FDF8EC;
 }
 
+/* ===== RECEIPT HISTORY & ENTRIES ===== */
 .receipt-entry {
   border: 1px solid #ccc;
   border-radius: 12px;

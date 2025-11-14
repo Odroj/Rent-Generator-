@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-- ===== HEAD: Metadata & Styles ===== -->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rent Receipt</title>
     <link rel="stylesheet" href="page.css">
 </head>
+
+<!-- ===== BODY: Main Content ===== -->
 <body>
     <main class="container"> 
+        <!-- ===== FORM SECTION: Input Fields & Submission ===== -->
         <section class="form-panel">
             <h1>
                 Generate Rent Receipt
@@ -62,6 +66,8 @@
                 </div>
             </form>
         </section>
+
+        <!-- ===== PREVIEW & HISTORY PANEL ===== -->
         <aside class="preview-panel">
             <h2>Receipt Preview</h2>
             <div class="receipt-card" id="receipt-preview">
@@ -71,6 +77,7 @@
             <div class="receipt-history" id="receipt-history"></div>
         </aside>
     </main>
+    <!-- ===== SCRIPTS ===== -->
     <script src="page.js"></script>
 </body>
 </html>

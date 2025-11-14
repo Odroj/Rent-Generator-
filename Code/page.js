@@ -1,4 +1,5 @@
 ﻿document.addEventListener("DOMContentLoaded", () => {
+  // ===== DOM ELEMENTS =====
   const form = document.getElementById("receipt-form");
   const previewCard = document.getElementById("receipt-preview");
   const historyContainer = document.getElementById("receipt-history");
@@ -6,9 +7,10 @@
   const saveBtn = document.getElementById("save-btn");
   const clearAllBtn = document.getElementById("clear-all-btn");
 
-
+  // ===== STORAGE CONFIGURATION =====
   const STORAGE_KEY = "receipts";
 
+  // ===== STORAGE HELPERS =====
   function readReceipts() {
     try {
       return JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
@@ -21,6 +23,7 @@
     localStorage.setItem(STORAGE_KEY, JSON.stringify(receipts));
   }
 
+  // ===== RENDERING FUNCTIONS =====
   function renderReceiptPreview(receipt) {
     return `
       <div class="receipt-entry">
@@ -43,35 +46,40 @@
 
   function renderHistory() {
     const receipts = readReceipts();
-    previewCard.innerHTML = receipts.length
+    historyContainer.innerHTML = receipts.length
       ? receipts.map(renderReceiptPreview).join("")
       : `<p id="preview-placeholder">No receipts saved yet.</p>`;
   }
 
   function handleDelete(receiptID) {
-    const receipts = readReceipts().filter(r => r.receiptID !== receiptID);
-    saveReceipts(receipts);
+    const receipts = readReceipts();
+    const updated= receipts.filter(r => r.receiptID !== receiptID);
+    saveReceipts(updated);
     renderHistory();
   }
 
+  // ===== FORM & DATA HANDLERS =====
+  function getCurrentReceipt() {
+  return {
+    tenant: document.getElementById("tenant-name").value,
+    landlord: document.getElementById("landlord").value,
+    email: document.getElementById("useremail").value,
+    phone: document.getElementById("usertele").value,
+    address: document.getElementById("userAddress").value,
+    unit: document.getElementById("user-unit").value,
+    amount: document.getElementById("pay-amt").value,
+    date: document.getElementById("pay-date").value,
+    method: document.getElementById("pay-method").value,
+    receiptID: document.getElementById("rec-ID").value,
+    notes: document.getElementById("notes").value,
+    signature: document.getElementById("signature").value,
+  };
+}
+
   function handleFormSubmit(e) {
     e.preventDefault();
-
-    const receipt = {
-      tenant: document.getElementById("tenant-name").value,
-      landlord: document.getElementById("landlord").value,
-      email: document.getElementById("useremail").value,
-      phone: document.getElementById("usertele").value,
-      address: document.getElementById("userAddress").value,
-      unit: document.getElementById("user-unit").value,
-      amount: document.getElementById("pay-amt").value,
-      date: document.getElementById("pay-date").value,
-      method: document.getElementById("pay-method").value,
-      receiptID: document.getElementById("rec-ID").value,
-      notes: document.getElementById("notes").value,
-      signature: document.getElementById("signature").value,
-    };
-
+    const receipt=getCurrentReceipt(); 
+    previewCard.innerHTML = renderReceiptPreview(receipt);
     const receipts = readReceipts();
     receipts.push(receipt);
     saveReceipts(receipts);
@@ -79,29 +87,53 @@
   }
 
   function handleSave() {
-    const content = previewCard.innerText || "";
-    const blob = new Blob([content], { type: "text/plain" });
+    const receipt=getCurrentReceipt();
+    const receipts = readReceipts();
+    const alreadyExists = receipts.some(r => r.receiptID === receipt.receiptID);
+    if (!alreadyExists) {
+    receipts.push(receipt);
+    saveReceipts(receipts);
+    renderHistory();
+    }
+    const content = renderReceiptPreview(receipt);
+    const blob = new Blob([content.replace(/<[^>]+>/g, "")], { type: "text/plain" });
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `Rent_Receipts_${new Date().toISOString().slice(0, 10)}.txt`;
+    link.download = `${receipt.receiptID}_${receipt.date}.txt`;
     document.body.appendChild(link);
     link.click();
     link.remove();
     setTimeout(() => URL.revokeObjectURL(link.href), 1000);
   }
 
+  function handlePrint() {
+  const receipt = getCurrentReceipt();
+  previewCard.innerHTML = renderReceiptPreview(receipt);
+  const receipts = readReceipts();
+  const alreadyExists = receipts.some(r => r.receiptID === receipt.receiptID);
+  if (!alreadyExists) {
+    receipts.push(receipt);
+    saveReceipts(receipts);
+    renderHistory();
+  }
+  window.print();
+}
+
+
+
   function handleClearAll() {
     localStorage.removeItem(STORAGE_KEY);
     renderHistory();
   }
 
+  // ===== EVENT LISTENERS =====
   // Event bindings
   form?.addEventListener("submit", handleFormSubmit);
   printBtn?.addEventListener("click", () => window.print());
   saveBtn?.addEventListener("click", handleSave);
   clearAllBtn?.addEventListener("click", handleClearAll);
 
-  previewCard.addEventListener("click", (e) => {
+  historyContainer.addEventListener("click", (e) => {
     if (e.target.classList.contains("delete-btn")) {
       const id = e.target.dataset.id;
       handleDelete(id);
