@@ -1,9 +1,11 @@
 ﻿document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("receipt-form");
-  const previewCard = document.getElementById("receipt-history");
+  const previewCard = document.getElementById("receipt-preview");
+  const historyContainer = document.getElementById("receipt-history");
   const printBtn = document.getElementById("print-btn");
   const saveBtn = document.getElementById("save-btn");
   const clearAllBtn = document.getElementById("clear-all-btn");
+
 
   const STORAGE_KEY = "receipts";
 
