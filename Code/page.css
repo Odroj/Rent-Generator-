@@ -108,3 +108,24 @@ h1{
     border-radius: 15px;
     background-color: #FDF8EC;
 }
+
+.receipt-entry {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background: #fffef9;
+  position: relative;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: #ffdddd;
+  border: none;
+  border-radius: 6px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
